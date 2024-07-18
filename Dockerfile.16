@@ -1,7 +1,14 @@
 FROM postgres:16
 
 # Install OpenSSL and sudo
-RUN apt-get update && apt-get install -y openssl sudo
+RUN apt-get update && apt-get install -y openssl sudo build-essential libpq-dev git
+
+git clone https://github.com/iCyberon/pg_hashids
+cd pg_hashids
+# Make sure your path includes the bin directory that contains the correct `pg_config`
+PATH=/path/to/pg/bin:$PATH
+USE_PGXS=1 make
+USE_PGXS=1 make install
 
 # Allow the postgres user to execute certain commands as root without a password
 RUN echo "postgres ALL=(root) NOPASSWD: /usr/bin/mkdir, /bin/chown, /usr/bin/openssl" > /etc/sudoers.d/postgres
