@@ -1,7 +1,7 @@
 FROM postgres:latest
 
 # Install OpenSSL, sudo, and required build dependencies
-RUN apt-get update && apt-get install -y openssl sudo build-essential libpq-dev git
+RUN apt-get update && apt-get install -y openssl sudo build-essential libpq-dev git postgresql-server-dev-all
 
 # Clone and install pg_hashids
 RUN git clone https://github.com/iCyberon/pg_hashids /tmp/pg_hashids
